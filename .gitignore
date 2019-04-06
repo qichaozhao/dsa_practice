@@ -2,3 +2,7 @@
 .vscode
 .idea
 DSAP_hints
+
+# python build files
+__pycache__
+*.pyc
