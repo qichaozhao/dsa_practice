@@ -7,3 +7,4 @@ Implementations and tests in both C and Python.
 - ch05 - Vectors (dynamically resizing array).
 - ch06 - Queues (backed by fixed size array, dynamically resizing array with circular indexing, and linked list).
 - ch07 - Single Linked List (with head + tail pointers, and a head sentinel node in the C implementation).
+- ch08 - Binary Search Tree

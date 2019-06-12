@@ -320,6 +320,21 @@ void test_bst_from_array(void)
     printf("OK\n");
 }
 
+void test_bst_print(void)
+{
+    printf("Testing bst_print of array with 3 nodes...\n");
+    bst *t1 = generate_bst(3);
+    bst_print(t1);
+
+    printf("Testing bst_print of array with 4 nodes...\n");
+    bst *t2 = generate_bst(4);
+    bst_print(t2);
+
+    printf("Testing bst_print of array with 8 nodes...\n");
+    bst *t3 = generate_bst(8);
+    bst_print(t3);
+}
+
 int main(void)
 {
     test_bst_create();
@@ -343,4 +358,5 @@ int main(void)
     test_bst_iter_bfs();
     test_bst_get_height();
     test_bst_balance();
+    test_bst_print();
 }

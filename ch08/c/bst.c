@@ -762,8 +762,8 @@ void bst_print(bst *tree)
     int w = 0;
     int h = 0;
 
-    w = pow(2, tree->height) * 2;
-    h = (tree->height + 1) * 2;
+    w = pow(2, tree->height) * 2 + 1;
+    h = (tree->height + 1) * 2 + 1;
 
     // Plot arrays
     int plt_idx = 0;
@@ -772,20 +772,22 @@ void bst_print(bst *tree)
     int *plt_val = malloc(sizeof(int) * tree->num_nodes);
 
     // We do a depth first traversal over the tree to formulate our plot indices
-    Queue *queue = queue_new(tree->num_nodes);
-    Queue *new_queue;
+    Queue *queue = queue_new(tree->num_nodes * 2);
+    queue_enqueue(queue, tree->root);
+    Queue *new_queue = NULL;
     int lvl = 0;
+    int idx = 0;
+    int x = 0;
+    int y = 0;
 
-    while (!queue_isempty(queue))
+    while (lvl >= 0)
     {
         // In order to index whitespace properly we should construct a new queue for each level
-        new_queue = queue_new(tree->num_nodes);
-        int idx = 0;
+        new_queue = queue_new(tree->num_nodes * 2);
+        idx = 0;
 
         // Loop through the current queue and append to the plot array
-        int x = 0;
-        int y = 0;
-        for (int i = 0; i < queue->n; i++)
+        while (queue->n > 0)
         {
             // Get the next node off the queue
             binary_node *nd = queue_dequeue(queue);
@@ -797,21 +799,39 @@ void bst_print(bst *tree)
                 y = lvl * 2;
 
                 // Append to plot arrays
+                printf("Appending: (%i, %i -> %i)\n", x, y, nd->value);
                 plt_x[plt_idx] = x;
                 plt_y[plt_idx] = y;
                 plt_val[plt_idx] = nd->value;
                 plt_idx++;
+                idx++;
 
                 // Grow out the new queue
-                queue_enqueue(new_queue, nd->left);
-                queue_enqueue(new_queue, nd->right);
+                if (nd->left)
+                {
+                    queue_enqueue(new_queue, nd->left);
+                }
+
+                if (nd->right)
+                {
+                    queue_enqueue(new_queue, nd->right);
+                }
+                printf("Num in new queue: %i\n", new_queue->n);
             }
         }
 
         // Now we setup the queue for the next level
         queue_destroy(queue);
         queue = new_queue;
-        lvl++;
+        if (queue->n > 0)
+        {
+            lvl++;
+        }
+        else
+        {
+            lvl = -1;
+        }
+        
     }
 
     // Now we read back through our plot indices and plot
