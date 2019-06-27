@@ -1,6 +1,7 @@
 .DS_Store
 .vscode
 .idea
+.cache
 DSAP_hints
 
 # python build files
