@@ -29,9 +29,6 @@ def test_min():
     assert (hp.data[0] == Item(5, "A"))
     assert (len(hp.data) == 1)
 
-    print("hello")
-    print(hp)
-
 
 def test_pop():
     hp = MinHeap()

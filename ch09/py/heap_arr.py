@@ -96,7 +96,7 @@ class MinHeap(object):
             raise Exception("We should not be here!")
 
         # Base case, the heap property is satisfied
-        if self.data[idx] < self.data[c]:
+        if self.data[idx] <= self.data[c]:
             return
 
         else:
