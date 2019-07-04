@@ -150,3 +150,38 @@ class MinHeap(object):
         # Now fix the root by down-sifting
         self.__sift_down(0)
         return item.key, item.value
+
+    def heapify(self, arr, j=None, k=None):
+        """
+        Takes an array of elements and turns it into a heap, j and k define boundaries so we can heapify just part of an array
+
+        :param arr:
+        :j:
+        :k:
+        :return:
+        """
+
+        self.data = arr
+
+        j = 0 if j is None else j
+        k = len(self.data) - 1 if k is None else k
+
+        start = self.__parent(k)
+        for i in range(start, j - 1, -1):
+            self.__sift_down(i)
+
+    def heap_sort(self):
+        """
+        Returns a sorted array from our heap
+
+        Since we have a min heap we make use of an extra array to store results
+
+        If we had a max heap we could do this in place
+        :return:
+        """
+
+        out = []
+        while len(self.data) > 0:
+            out.append(self.pop())
+
+        return out
